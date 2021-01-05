@@ -8,18 +8,14 @@ public class ThreadState {
         Thread second = new Thread(
                 () -> {
                 });
-        Thread three = new Thread(
-                () -> {
-                });
         first.start();
+        second.start();
         while (first.getState() != Thread.State.TERMINATED) {
-            second.start();
-            three.start();
-            System.out.println(second.getName());
-            System.out.println(three.getName());
-
+            System.out.println(first.getName());
         }
-        System.out.println(Thread.currentThread().getName() + " working is finish");
-
+        while (second.getState() != Thread.State.TERMINATED) {
+            System.out.println(second.getName());
+        }
+        System.out.println("working is finish");
     }
 }
