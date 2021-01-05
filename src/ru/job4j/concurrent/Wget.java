@@ -6,10 +6,8 @@ public class Wget {
         Thread thread = new Thread(
                 () -> {
                     try {
-                        int index = 0;
-                        for (int i = 0; i < 100; i++) {
+                        for (int index = 0; index < 100; index++) {
                             Thread.sleep(1000);
-                            index++;
                             System.out.println("\rLoading : " + index + "%");
                         }
                     } catch (InterruptedException e) {
