@@ -6,8 +6,9 @@ class ConsoleProgress implements Runnable {
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                Thread.sleep(500);
                 System.out.print("\r load: " +  " \\|/");
+                Thread.sleep(500);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
