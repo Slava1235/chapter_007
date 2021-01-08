@@ -1,14 +1,14 @@
 package ru.job4j.concurrent;
 
 class ConsoleProgress implements Runnable {
-    String[] strSlash = {"\\", "|", "/"};
-    String strOneSlash;
 
     @Override
     public void run() {
-
         try {
             while (!Thread.currentThread().isInterrupted()) {
+                String[] strSlash = {"\\", "|", "/"};
+                String strOneSlash;
+
                 for (int i = 0; i < strSlash.length; i++) {
                     strOneSlash = strSlash[i];
                     System.out.println("\r load: " + strOneSlash);
@@ -20,8 +20,7 @@ class ConsoleProgress implements Runnable {
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
-
-
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -29,8 +28,8 @@ class ConsoleProgress implements Runnable {
 
         Thread progress = new Thread(new ConsoleProgress());
         progress.start();
-        Thread.sleep(1); /* симулируем выполнение параллельной задачи в течение 1 секунды. */
-       // progress.interrupt(); //
+        Thread.sleep(10000); /* симулируем выполнение параллельной задачи в течение 1 секунды. */
+        progress.interrupt(); //
     }
 }
 
