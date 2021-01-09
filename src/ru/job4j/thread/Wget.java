@@ -18,14 +18,22 @@ public class Wget implements Runnable {
     @Override
     public void run() {
         /* Скачать файл*/
-        String file = "";
+        String file = "https://raw.githubusercontent.com/peterarsentev/course_test/master/pom.xml";
         try (BufferedInputStream in = new BufferedInputStream(new URL(url).openStream());
-             FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+             FileOutputStream fileOutputStream = new FileOutputStream("pom_tmp.xml")) {
             byte[] dataBuffer = new byte[1024];
             int bytesRead;
+            int bytesReadSinceSleep = 0;
+            long lastSleepTime = System.currentTimeMillis();
             while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
-                Thread.sleep(speed);
+                bytesReadSinceSleep = +bytesRead;
+                if (bytesReadSinceSleep <= speed) {
+                    long timeElapsed = System.currentTimeMillis() - lastSleepTime;
+                    Thread.sleep(Math.max(1000 - timeElapsed, 0));
+                    bytesReadSinceSleep = 0;
+                    lastSleepTime = System.currentTimeMillis();
+                }
             }
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
