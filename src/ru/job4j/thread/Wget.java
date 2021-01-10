@@ -19,7 +19,7 @@ public class Wget implements Runnable {
     public void run() {
         /* Скачать файл*/
         String file = "https://raw.githubusercontent.com/peterarsentev/course_test/master/pom.xml";
-        try (BufferedInputStream in = new BufferedInputStream(new URL(url).openStream());
+        try (BufferedInputStream in = new BufferedInputStream(new URL(file).openStream());
              FileOutputStream fileOutputStream = new FileOutputStream("pom_tmp.xml")) {
             byte[] dataBuffer = new byte[1024];
             int bytesRead;
@@ -41,9 +41,16 @@ public class Wget implements Runnable {
     }
 
 
-    public static void main(String[] args) throws InterruptedException {
-        String url = args[0];
-        int speed = Integer.parseInt(args[1]);
+    public static void main(String[] args) throws InterruptedException, ArrayIndexOutOfBoundsException {
+        String url = null;
+
+        if (args.length > 0)
+            url = args[3];
+
+        int speed = 0;
+        if (args.length > 0)
+            speed = Integer.parseInt(args[3]);
+
         Thread wget = new Thread(new Wget(url, speed));
         wget.start();
         wget.join();
