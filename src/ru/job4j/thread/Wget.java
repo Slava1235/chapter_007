@@ -1,6 +1,8 @@
 package ru.job4j.thread;
 
 
+import ru.job4j.concurrent.FileDownload;
+
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -42,17 +44,15 @@ public class Wget implements Runnable {
 
 
     public static void main(String[] args) throws InterruptedException, ArrayIndexOutOfBoundsException {
-        String url = null;
+        if (args.length < 2) {
+            System.out.println("You didn't enter any input argument");
+        } else {
+            String url = args[0];
+            int speed = Integer.parseInt(args[args.length - 1]);
 
-        if (args.length > 0)
-            url = args[3];
-
-        int speed = 0;
-        if (args.length > 0)
-            speed = Integer.parseInt(args[3]);
-
-        Thread wget = new Thread(new Wget(url, speed));
-        wget.start();
-        wget.join();
+            Thread wget = new Thread(new Wget(url, speed));
+            wget.start();
+            wget.join();
+        }
     }
 }
