@@ -3,12 +3,10 @@ package ru.job4j.ref;
 import net.jcip.annotations.NotThreadSafe;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @NotThreadSafe
 public class UserCache {
@@ -25,10 +23,7 @@ public class UserCache {
     }
 
 
-    public List<User> findAll() {
-        List<User> userList = new ArrayList<>();
-        userList.add(User.of(users.values().toString()));
-        return userList;
+    public List<User> findAll(User user) {
+        return new ArrayList<>(User.of(user.getName()));
     }
 }
-
