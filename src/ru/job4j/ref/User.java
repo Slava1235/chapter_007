@@ -1,7 +1,5 @@
 package ru.job4j.ref;
 
-import java.util.List;
-
 public class User {
     private int id;
     private String name;
@@ -11,6 +9,7 @@ public class User {
         user.name = name;
         return user;
     }
+    
 
     public int getId() {
         return id;
