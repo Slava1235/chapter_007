@@ -16,6 +16,3 @@ notifications:
       - starslava14@gmail.com
     on_success: never # default: change
     on_failure: always # default: always
-env:
-  global:
-    - CODECOV_TOKEN="9d357ca1-db36-4cfb-8502-3236c9518ca9"
