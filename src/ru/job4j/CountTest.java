@@ -1,9 +1,9 @@
 package ru.job4j;
 
-import org.testng.annotations.Test;
+import org.hamcrest.CoreMatchers;
+import org.junit.Test;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class CountTest {
     private class ThreadCount extends Thread {
@@ -31,6 +31,6 @@ public class CountTest {
         first.join();
         second.join();
 
-        assertThat(count.get(), is(2));
+        assertThat(count.get(), CoreMatchers.is(2));
     }
 }
