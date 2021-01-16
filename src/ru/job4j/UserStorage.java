@@ -7,36 +7,44 @@ import java.util.HashMap;
 
 @ThreadSafe
 public class UserStorage {
-    private final HashMap<Integer, Integer> userMap = new HashMap<>();
+    private final HashMap<Integer, User> userMap = new HashMap<>();
 
     public synchronized boolean add(User user) {
-        return userMap.putIfAbsent(user.getId(), user.getAmount()) != null;
+        userMap.putIfAbsent(user.getId(), user);
+        return userMap.containsValue(user);
     }
 
     public synchronized boolean update(User user) {
-        return userMap.putIfAbsent(user.getId(), user.getAmount()) != null;
+        if (userMap.containsKey(user.getId())) {
+            userMap.put(user.getId(), user);
+            return true;
+        }
+        return false;
     }
 
-    public synchronized boolean delete(User user) {
-        return userMap.remove(user.getId()) != null;
-    }
 
-    public synchronized void transfer(int fromId, int toId, int amount) {
-        if (userMap != null) {
-            if (userMap.get(1).intValue() >= 50) {
-                fromId = userMap.get(1) - amount;
-                toId = userMap.get(2) + amount;
-
+        public synchronized boolean delete (User user) {
+            if (userMap.containsKey(user.getId()) && user.equals(userMap.get(user.getId()))) {
+                userMap.remove(user.getId());
+                return true;
+            } else {
+                return false;
+//        return userMap.remove(user.getId()) != null;
             }
         }
+
+        public synchronized void transfer ( int fromId, int toId, int amount){
+
     }
 
-    public static void main(String[] args) {
-        UserStorage stoge = new UserStorage();
 
-        stoge.add(new User(1, 100));
-        stoge.add(new User(2, 200));
 
-        stoge.transfer(1, 2, 50);
+        public static void main (String[]args){
+            UserStorage stoge = new UserStorage();
+
+            stoge.add(new User(1, 100));
+            stoge.add(new User(2, 200));
+
+            stoge.transfer(1, 2, 50);
+        }
     }
-}
