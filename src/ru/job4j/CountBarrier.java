@@ -3,28 +3,46 @@ package ru.job4j;
 public class CountBarrier {
     private final Object monitor = this;
 
-    private final int total;
+    private int total;
 
     private int count = 0;
 
-    public CountBarrier(final int total) {
+    public CountBarrier(int total) {
         this.total = total;
     }
 
-    public void count() {
-        count++;
+    public CountBarrier() {
+
     }
 
-    public void await() {
+
+    public synchronized void count() {
+        count++;
+        if (count == total) {
+            monitor.notifyAll();
+        }
+    }
+
+
+    public synchronized void await() {
         if (count != total) {
             try {
                 monitor.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        } else {
-            monitor.notifyAll();
         }
     }
 
+    public static void main(String[] args) {
+        CountBarrier countBarrier = new CountBarrier();
+        Thread thread = new Thread(
+            () -> {
+                System.out.println(Thread.currentThread().getName());
+                countBarrier.await();
+                countBarrier.count();
+        }
+        );
+        thread.start();
+    }
 }
