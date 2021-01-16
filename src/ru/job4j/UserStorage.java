@@ -3,18 +3,18 @@ package ru.job4j;
 
 import net.jcip.annotations.ThreadSafe;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
 
 @ThreadSafe
 public class UserStorage {
-    ConcurrentHashMap<Integer, Integer> userMap = new ConcurrentHashMap<>();
+    private final HashMap<Integer, Integer> userMap = new HashMap<>();
 
     public synchronized boolean add(User user) {
-        return userMap.put(user.getId(), user.getAmount()) != null;
+        return userMap.putIfAbsent(user.getId(), user.getAmount()) != null;
     }
 
     public synchronized boolean update(User user) {
-        return userMap.put(user.getId(), user.getAmount()) != null;
+        return userMap.putIfAbsent(user.getId(), user.getAmount()) != null;
     }
 
     public synchronized boolean delete(User user) {
