@@ -23,28 +23,32 @@ public class UserStorage {
     }
 
 
-        public synchronized boolean delete (User user) {
-            if (userMap.containsKey(user.getId()) && user.equals(userMap.get(user.getId()))) {
-                userMap.remove(user.getId());
-                return true;
-            } else {
-                return false;
-//        return userMap.remove(user.getId()) != null;
-            }
+    public synchronized boolean delete(User user) {
+        if (userMap.containsKey(user.getId()) && user.equals(userMap.get(user.getId()))) {
+            userMap.remove(user.getId());
+            return true;
         }
-
-        public synchronized void transfer ( int fromId, int toId, int amount){
-
+        return false;
     }
 
+    public synchronized void transfer(int fromId, int toId, int amount) {
+        if (userMap.values() != null)
+            fromId = userMap.get(1).getAmount();
+        toId = userMap.get(2).getAmount();
 
-
-        public static void main (String[]args){
-            UserStorage stoge = new UserStorage();
-
-            stoge.add(new User(1, 100));
-            stoge.add(new User(2, 200));
-
-            stoge.transfer(1, 2, 50);
+        if (fromId >= 50) {
+            fromId = fromId - amount;
+            toId = toId + amount;
         }
     }
+
+
+    public static void main(String[] args) {
+        UserStorage stoge = new UserStorage();
+
+        stoge.add(new User(1, 100));
+        stoge.add(new User(2, 200));
+
+        stoge.transfer(1, 2, 50);
+    }
+}
