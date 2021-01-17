@@ -15,7 +15,9 @@ public class ParseFile {
         return file;
     }
 
+
     public synchronized StringBuilder getContent(Predicate<Integer> pred) throws IOException {
+
         String file = "/home/svyatoslav/IdeaProjects/file.txt";
         InputStream i = new FileInputStream(file);
         StringBuilder stringBuilder = new StringBuilder();
@@ -45,3 +47,5 @@ public class ParseFile {
         }
     }
 }
+
+
