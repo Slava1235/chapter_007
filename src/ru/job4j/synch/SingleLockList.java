@@ -6,7 +6,9 @@ import ru.job4j.DynamicContainer;
 import java.util.Iterator;
 
 public class SingleLockList<T> implements Iterable<T> {
-    DynamicContainer<T> dynamicContainer;
+     private  final DynamicContainer<T> dynamicContainer = null;
+
+
 
     public synchronized void add(T value) {
         dynamicContainer.add(value);
@@ -24,7 +26,6 @@ public class SingleLockList<T> implements Iterable<T> {
     private Iterable<T> copy(DynamicContainer<T> dynamicContainer) {
         DynamicContainer<T> list = new DynamicContainer<>();
         if(dynamicContainer != null) {
-
             list.iterator().forEachRemaining(dynamicContainer::add);
         }
             return list;
