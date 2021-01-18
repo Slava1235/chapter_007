@@ -32,13 +32,13 @@ public class UserStorage {
     }
 
     public synchronized void transfer(int fromId, int toId, int amount) {
-        if (userMap.values() != null)
-            fromId = userMap.get(1).getAmount();
-        toId = userMap.get(2).getAmount();
+        User from = userMap.get(fromId);
+        User to = userMap.get(toId);
 
-        if (fromId >= 50) {
-            fromId = fromId - amount;
-            toId = toId + amount;
+        if (from != null && to != null && from.getAmount() >= amount) {
+            from.setAmount(to.getAmount() + amount);
+            to.setAmount(to.getAmount() + amount);
+
         }
     }
 
