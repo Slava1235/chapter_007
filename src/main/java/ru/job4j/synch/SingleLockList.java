@@ -6,7 +6,7 @@ import ru.job4j.DynamicContainer;
 import java.util.Iterator;
 
 public class SingleLockList<T> implements Iterable<T> {
-    final private DynamicContainer<T> dynamicContainer = new DynamicContainer<>();
+    private final DynamicContainer<T> dynamicContainer = new DynamicContainer<>();
 
 
     public synchronized void add(T value) {
