@@ -24,11 +24,7 @@ public class UserStorage {
 
 
     public synchronized boolean delete(User user) {
-        if (userMap.containsKey(user.getId()) && user.equals(userMap.get(user.getId()))) {
-            userMap.remove(user.getId());
-            return true;
-        }
-        return false;
+        return userMap.remove(user.getId(), user);
     }
 
     public synchronized void transfer(int fromId, int toId, int amount) {
@@ -36,7 +32,7 @@ public class UserStorage {
         User to = userMap.get(toId);
 
         if (from != null && to != null && from.getAmount() >= amount) {
-            from.setAmount(to.getAmount() + amount);
+            from.setAmount(to.getAmount() - amount);
             to.setAmount(to.getAmount() + amount);
 
         }
