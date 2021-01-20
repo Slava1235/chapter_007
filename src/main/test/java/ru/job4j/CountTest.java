@@ -2,6 +2,7 @@ package ru.job4j;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
+import ru.job4j.count.Count;
 
 import static org.junit.Assert.assertThat;
 

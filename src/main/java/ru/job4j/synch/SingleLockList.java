@@ -1,8 +1,6 @@
 package ru.job4j.synch;
 
 
-import ru.job4j.DynamicContainer;
-
 import java.util.Iterator;
 
 

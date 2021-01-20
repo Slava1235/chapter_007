@@ -1,4 +1,4 @@
-package ru.job4j;
+package ru.job4j.countBarrier;
 
 public class CountBarrier {
     private final Object monitor = this;
