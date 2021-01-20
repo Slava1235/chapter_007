@@ -37,6 +37,7 @@ public class EmailNotification {
         }
     }
 
+
     void send(String suject, String body, String email) {
 
     }

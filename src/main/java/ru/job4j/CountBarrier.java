@@ -18,30 +18,28 @@ public class CountBarrier {
 
     public synchronized void count() {
         count++;
-        if (count == total) {
-            monitor.notifyAll();
-        }
+        monitor.notifyAll();
     }
 
 
     public synchronized void await() {
-        if (count != total) {
-            try {
+        try {
+            while (count != total) {
                 monitor.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
         CountBarrier countBarrier = new CountBarrier();
         Thread thread = new Thread(
-            () -> {
-                System.out.println(Thread.currentThread().getName());
-                countBarrier.await();
-                countBarrier.count();
-        }
+                () -> {
+                    System.out.println(Thread.currentThread().getName());
+                    countBarrier.await();
+                    countBarrier.count();
+                }
         );
         thread.start();
     }

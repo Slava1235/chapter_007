@@ -1,8 +1,6 @@
 package ru.job4j.thread;
 
 
-import ru.job4j.concurrent.FileDownload;
-
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;

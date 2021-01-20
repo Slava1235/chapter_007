@@ -16,5 +16,7 @@ public class Wget {
                 }
         );
         thread.start();
+        System.out.println();
     }
+
 }

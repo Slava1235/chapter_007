@@ -13,6 +13,7 @@ public class SingleLockListTest {
 
     @Test
     public void add() throws InterruptedException {
+
         SingleLockList<Integer> list = new SingleLockList<>();
         Thread first = new Thread(() -> list.add(1));
         Thread second = new Thread(() -> list.add(2));

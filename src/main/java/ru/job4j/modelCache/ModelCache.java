@@ -3,7 +3,7 @@ package ru.job4j.modelCache;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ModelCache {
-    ConcurrentHashMap<Integer, Base> base = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Integer, Base> base = new ConcurrentHashMap<>();
 
     public int add(Base model){
         base.put(model.getId(), model);
