@@ -9,13 +9,14 @@ import java.util.concurrent.atomic.AtomicReference;
 public class CASCount<T> {
     private final AtomicReference<Integer> count = new AtomicReference<>();
     int value;
-    Integer ref;
+
 
     public final void increment() {
-        while (count.compareAndSet(ref, value)) {
-            Integer ref = count.get();
+        Integer ref;
+        do {
+            ref = count.get();
             Integer value = ref + 1;
-        }
+        } while (count.compareAndSet(ref, value));
     }
 
     public int get() {
