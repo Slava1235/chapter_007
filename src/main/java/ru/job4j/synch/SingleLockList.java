@@ -24,9 +24,7 @@ public class SingleLockList<T> implements Iterable<T> {
 
     public Iterable<T> copy(DynamicContainer<T> dynamicContainer) {
         DynamicContainer<T> list = new DynamicContainer<>();
-        if (dynamicContainer != null) {
-            list.iterator().forEachRemaining(dynamicContainer::add);
-        }
+        list.iterator().forEachRemaining(dynamicContainer::add);
         return list;
 
     }
