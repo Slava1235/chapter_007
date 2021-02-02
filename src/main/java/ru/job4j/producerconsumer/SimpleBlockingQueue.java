@@ -12,6 +12,7 @@ import java.util.Queue;
 public class SimpleBlockingQueue<T> {
     /**
      * This annotation do collection synchronized.
+     *
      * @param queue collection for work producer and consumer
      */
     @GuardedBy("this")
@@ -26,11 +27,16 @@ public class SimpleBlockingQueue<T> {
 
     /**
      * blocks progress until an item appears in an empty queue.
+     *
      * @param value SimpleBlockingQueue
      */
-    synchronized void offer(T value) throws InterruptedException {
+    public synchronized void offer(T value) {
         while (queue.size() >= capacity) {
-            wait();
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         queue.add(value);
         notify();
@@ -38,15 +44,20 @@ public class SimpleBlockingQueue<T> {
 
     /**
      * blocks progress until space becomes free in a full queue.
+     *
      * @return
      * @throws InterruptedException
      */
-    synchronized T poll() throws InterruptedException {
+    public synchronized T poll() throws InterruptedException {
         while (queue.size() == 0) {
             wait();
         }
         notify();
         return queue.poll();
+    }
+
+    public synchronized boolean isEmpty() {
+        return queue.isEmpty();
     }
 }
 
