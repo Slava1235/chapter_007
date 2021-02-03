@@ -16,9 +16,6 @@ public class ThreadPool {
             thread.start();
         }
         tasks.offer(job);
-        for (Thread t : threads) {
-            t.interrupt();
-        }
     }
 
     public void shutdown() {
