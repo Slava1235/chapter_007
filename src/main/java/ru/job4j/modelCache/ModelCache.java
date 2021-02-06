@@ -20,6 +20,7 @@ class ModelCache {
         });
     }
 
+
     public void delete(Base model) {
         base.remove(model.getId(), model);
     }
