@@ -13,7 +13,7 @@ class ModelCache {
     public void update(Base model) {
         base.computeIfPresent(model.getId(), (k, v) -> {
             if (base.get(k).getVersion() != model.getVersion()) {
-                throw new OptimisticException("Throw Exception in Thread");
+                throw new OptimisticException(" Exception in Thread");
             }
             model.setVersion(model.getVersion() + 1);
             return model;
