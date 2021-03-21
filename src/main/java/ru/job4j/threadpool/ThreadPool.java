@@ -12,15 +12,24 @@ public class ThreadPool {
 
     public void work(Runnable job) {
         for (int i = 0; i < size; i++) {
-            Thread thread = new Thread((Runnable) tasks);
+            threads.add(new Thread(() -> {
+                tasks.offer(job);
+            }));
+        }
+        for (Thread thread : threads) {
             thread.start();
         }
-        tasks.offer(job);
+        shutdown();
     }
+
 
     public void shutdown() {
         for (Thread t : threads) {
             t.interrupt();
         }
+    }
+
+    public static void main(String[] args) {
+       new ThreadPool().work(new Thread());
     }
 }
