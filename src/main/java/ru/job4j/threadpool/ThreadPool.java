@@ -10,16 +10,20 @@ public class ThreadPool {
     private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>();
     private final int size = Runtime.getRuntime().availableProcessors();
 
+
     public void work(Runnable job) {
         for (int i = 0; i < size; i++) {
             threads.add(new Thread(() -> {
-                tasks.offer(job);
             }));
+            tasks.offer(job);
         }
+
+
         for (Thread thread : threads) {
             thread.start();
+
         }
-        shutdown();
+
     }
 
 
@@ -30,6 +34,7 @@ public class ThreadPool {
     }
 
     public static void main(String[] args) {
-       new ThreadPool().work(new Thread());
+        new ThreadPool().work(new Thread());
+        new ThreadPool().shutdown();
     }
 }
